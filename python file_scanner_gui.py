@@ -1,79 +1,45 @@
 
-                                                                   python                                                                                  
-# Simple Calculator script
+import tkinter as tk
+from tkinter import filedialog, messagebox
 
-def add(x, y):
-    return x + y
+# Initialize the main window
+window = tk.Tk()
+window.title("Virus Scanner Tool")
+window.geometry("600x400")
 
-def subtract(x, y):
-    return x - y
+# Label
+label = tk.Label(window, text="Welcome to the Virus Scanner Tool", font=("Arial", 16))
+label.pack(pady=20)
 
-def multiply(x, y):
-    return x * y
+# Textbox to display scan results
+text_box = tk.Text(window, height=10, width=60)
+text_box.pack(pady=10)
 
-def divide(x, y):
-    if y != 0:
-        return x / y
-    else:
-        return "Error! Division by zero."
+def scan_file(file_path):
+    """
+    Function to scan the selected file.
+    Add your virus scanning logic here.
+    """
+    text_box.insert(tk.END, f"Scanning file: {file_path}\n")
+    print(f"Scanning file: {file_path}")
+    # For demonstration purposes, we'll simulate a scan result.
+    # Replace the following lines with your actual scanning logic.
+    result = "SAFE"  # Placeholder result.
+    text_box.insert(tk.END, f"Scan result: {result}\n")
 
-# Displaying options for the user
-def display_menu():
-    print("\nSelect operation:")
-    print("1. Add")
-    print("2. Subtract")
-    print("3. Multiply")
-    print("4. Divide")
-    print("5. Exit")
+def select_file():
+    """
+Function to handle file selection.
+    Opens a file dialog and passes the chosen file to the scan_file function.
+    """
+    file_path = filedialog.askopenfilename(title="Select a File")
+    if file_path:
+        text_box.insert(tk.END, f"Selected file: {file_path}\n")
+        scan_file(file_path)
 
-# Main function for the calculator
-def calculator():
-    while True:
-        display_menu()
-# Taking user input for operation choice
-        choice = input("Enter choice (1/2/3/4/5): ")
+# Button to select a file
+select_button = tk.Button(window, text="Select File to Scan", command=select_file)
+select_button.pack(pady=10)
 
-        # If user chooses to exit
-        if choice == '5':
-            print("Exiting the calculator. Goodbye!")
-            break
-
-        # Checking if the user input is a valid operation
-        if choice in ['1', '2', '3', '4']:
-            try:
-                num1 = float(input("Enter first number: "))
-                num2 = float(input("Enter second number: "))
-
-                # Performing the operation based on the user's choice
-                if choice == '1':
-                    print(f"{num1} + {num2} = {add(num1, num2)}")
-                elif choice == '2':
-                    print(f"{num1} - {num2} = {subtract(num1, num2)}")
-                elif choice == '3':
-                    print(f"{num1} * {num2} = {multiply(num1, num2)}")
-                elif choice == '4':
-                    print(f"{num1} / {num2} = {divide(num1, num2)}")
-
-            except ValueError:
-                print("Invalid input! Please enter numeric values.")
-        else:
-            print("Invalid choice! Please select a valid operation.")
-
- # Asking the user if they want to perform another calculation
-        continue_calc = input("\nDo you want to perform another calculation? (yes/no): ").lower()
-        if continue_calc != 'yes':
-            print("Exiting the calculator. Goodbye!")
-            break
-
-# Run the calculator function
-if __name__ == "__main__":
-    calculator()
-
-# Navigate to your project folder
-cd path/to/your-virus-scanner
-
-# Initialize a Git repository
-git init
-
-# Link it to your GitHub repository
-git remote add origin https://github
+# Run the GUI
+window.mainloop()
